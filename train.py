@@ -65,7 +65,7 @@ def train(model, dataset_path, criterion, optimizer, save_path, epochs=5, best_a
     print('train_loader len:', len(train_loader))
     print('val_loader len:', len(val_loader))
 
-    best_val_loss = float('inf')  # 初期値を無限大に設定
+    best_val_loss = float('inf') 
     best_val_acc = 0
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
@@ -84,7 +84,6 @@ def train(model, dataset_path, criterion, optimizer, save_path, epochs=5, best_a
         average_loss = running_loss / len(train_loader)
         print(f"Epoch {epoch + 1}/{epochs}, Training Loss: {average_loss}")
 
-        # バリデーションセットでの評価
         model.eval()
         val_loss = 0.0
         running_correct = 0
