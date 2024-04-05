@@ -6,22 +6,20 @@ import os
 np.random.seed(40)
 
 def bootstrap_mean_iterations(filename, n, step):
-    # CSVファイルを読み込む
+    
     data = pd.read_csv(filename)
     num_rows = len(data)
 
-    # 列ごとにBootstrap法を指定された回数だけ適用して平均値を計算
     means_per_iteration = []
     for iteration in range(step):
-        # 行のインデックスを重複を許してランダムにn個サンプリング
+
         sampled_rows = np.random.choice(num_rows, size=n, replace=True)
         
         iteration_means = []
         for column in data.columns:
-            # サンプリングされた行と列の値を取得し、nanが含まれる行は無視
+
             sampled_data = data.iloc[sampled_rows][column].dropna()
             
-            # サンプリングされたデータの平均値を計算し、結果をリストに追加
             mean_value = np.mean(sampled_data)
             iteration_means.append(mean_value)
         
@@ -30,10 +28,8 @@ def bootstrap_mean_iterations(filename, n, step):
     return means_per_iteration
 
 def calculate_mean_and_std(data):
-    # 2次元リストをNumPy配列に変換
     array_data = np.array(data)
 
-    # 列ごとに平均と標準偏差を計算
     mean_values = np.mean(array_data, axis=1)
     std_values = np.std(array_data, axis=1)
 
